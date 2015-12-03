@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>CSMS Database</title>
+    <meta charset="utf-8" />
+    <link rel = "StyleSheet" href ="MainStyle.css" /> 
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <header>
+        <h1>CSE-EIS</h1>
+        <h2>Technological Excellence Through Innovation</h2>
+        <h4>CSMS Database<br/>
+         <asp:Label ID="lblUser" runat="server"></asp:Label>
+
+        </h4>
+    </header>
+    <div id="container">
+        <nav>
+            <h3>Main Menu</h3>
+            <a href='default.aspx'> Home </a>
+
+            <%
+                if(Request.Cookies["login"]!=null)
+                    Response.Write("<a href='logout.aspx'> Logout </a><a href='projectlibrary.aspx'> Project Library </a><a href='companyinformation.aspx'> Company Information </a><a href='usermanagement.aspx'> User Management </a><a href='serviceform.aspx'> Service Form </a>");
+                else
+                    Response.Write("<a href='login.aspx'> Login </a>");
+            %>
+        </nav>
+        <section>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </section>
+        
+        <footer>2015 &copy; CSE-Global</footer>
+        </div>
+    </form>
+</body>
+</html>
