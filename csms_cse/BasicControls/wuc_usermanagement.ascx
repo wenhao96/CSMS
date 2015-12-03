@@ -316,5 +316,5 @@
                    </center>
                    </center>
                    </center>
-                <footer><h5>Welcome To User Managent</h5></footer>
+                <footer></footer>
             </article>
