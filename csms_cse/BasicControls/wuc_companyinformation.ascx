@@ -79,11 +79,10 @@
                                         <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource2" ForeColor="#333333" GridLines="None" style="margin-bottom: 2px; font-size: small;" Width="813px">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>
-                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="Company Address" SortExpression="COMPANYADDRESS" />
-                                                <asp:BoundField DataField="COMPANYPHONE" HeaderText="Company Phone" SortExpression="COMPANYPHONE" />
-                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="Company Fax" SortExpression="COMPANYFAX" />
-                                                <asp:BoundField DataField="WEBSITE" HeaderText="Website" SortExpression="WEBSITE" />
+                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="COMPANYNAME" SortExpression="COMPANYNAME" />
+                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="COMPANYADDRESS" SortExpression="COMPANYADDRESS" />
+                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="COMPANYFAX" SortExpression="COMPANYFAX" />
+                                                <asp:BoundField DataField="WEBSITE" HeaderText="WEBSITE" SortExpression="WEBSITE" />
                                             </Columns>
                                             <EditRowStyle BackColor="#2461BF" />
                                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -96,24 +95,25 @@
                                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                                         </asp:GridView>
-                                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [COMPANYNAME], [COMPANYADDRESS], [COMPANYPHONE], [COMPANYFAX], [WEBSITE] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
+                                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [COMPANYNAME], [COMPANYADDRESS], [COMPANYFAX], [WEBSITE] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
                                             <SelectParameters>
                                                 <asp:ControlParameter ControlID="TextBox1" Name="COMPANYNAME" PropertyName="Text" Type="String" />
                                             </SelectParameters>
                                         </asp:SqlDataSource>
-                                        User Information Related To The Company Above<br />
                                         <br />
-                                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource3" ForeColor="#333333" GridLines="None" Width="812px" AllowPaging="True" DataKeyNames="USERID" style="font-size: small">
+                                        Contact Details<br />
+                                        <br />
+                                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource3" ForeColor="#333333" GridLines="None" Width="812px" AllowPaging="True" style="font-size: small">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>
-                                                <asp:BoundField DataField="USERID" HeaderText="User ID" SortExpression="USERID" ReadOnly="True" />
-                                                <asp:BoundField DataField="SALUTATION" HeaderText="Salutation" SortExpression="SALUTATION" />
-                                                <asp:BoundField DataField="NAME" HeaderText="Name" SortExpression="NAME" />
-                                                <asp:BoundField DataField="EMAIL" HeaderText="E-Mail" SortExpression="EMAIL" />
-                                                <asp:BoundField DataField="PHONE" HeaderText="Phone" SortExpression="PHONE" />
-                                                <asp:BoundField DataField="HANDPHONE" HeaderText="Handphone" SortExpression="HANDPHONE" />
-                                                <asp:BoundField DataField="SKYPE" HeaderText="Skype" SortExpression="SKYPE" />
-                                                <asp:BoundField DataField="POSITION" HeaderText="Position" SortExpression="POSITION" />
+                                                <asp:BoundField DataField="SALUTATION" HeaderText="SALUTATION" SortExpression="SALUTATION" />
+                                                <asp:BoundField DataField="NAME" HeaderText="NAME" SortExpression="NAME" />
+                                                <asp:BoundField DataField="EMAIL" HeaderText="EMAIL" SortExpression="EMAIL" />
+                                                <asp:BoundField DataField="PHONE" HeaderText="PHONE" SortExpression="PHONE" />
+                                                <asp:BoundField DataField="HANDPHONE" HeaderText="HANDPHONE" SortExpression="HANDPHONE" />
+                                                <asp:BoundField DataField="SKYPE" HeaderText="SKYPE" SortExpression="SKYPE" />
+                                                <asp:BoundField DataField="POSITION" HeaderText="POSITION" SortExpression="POSITION" />
+                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="COMPANYNAME" SortExpression="COMPANYNAME" />
                                             </Columns>
                                             <EditRowStyle BackColor="#2461BF" />
                                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -148,7 +148,7 @@
                                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                                             <RowStyle BackColor="#EFF3FB" />
                                         </asp:DetailsView>
-                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [USERID], [SALUTATION], [NAME], [EMAIL], [PHONE], [HANDPHONE], [SKYPE], [POSITION] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
+                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [SALUTATION], [NAME], [EMAIL], [PHONE], [HANDPHONE], [SKYPE], [POSITION],[COMPANYNAME] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
                                             <SelectParameters>
                                                 <asp:ControlParameter ControlID="TextBox1" Name="COMPANYNAME" PropertyName="Text" Type="String" />
                                             </SelectParameters>
@@ -197,5 +197,5 @@
                    </center>
                    </center>
                    </center>
-                <footer><h5>Welcome To Company Information</h5></footer>
+                <footer><h5>&nbsp;</h5></footer>
             </article>
