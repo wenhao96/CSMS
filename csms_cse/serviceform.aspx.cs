@@ -9,6 +9,9 @@ public partial class serviceform : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["ClientID"] == null)
+        {
+            Response.Redirect("login.aspx");
+        }
     }
 }

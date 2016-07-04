@@ -15,10 +15,10 @@
     <header>
         <h1>CSE-EIS</h1>
         <h2>Technological Excellence Through Innovation</h2>
-        <h4>CSMS Database<br/>
+        <!--<h4>CSMS Database<br/>
          <asp:Label ID="lblUser" runat="server"></asp:Label>
 
-        </h4>
+        </h4>-->
     </header>
     <div id="container">
         <nav>
@@ -26,8 +26,8 @@
             <a href='default.aspx'> Home </a>
 
             <%
-                if(Request.Cookies["login"]!=null)
-                    Response.Write("<a href='logout.aspx'> Logout </a><a href='projectlibrary.aspx'> Project Library </a><a href='companyinformation.aspx'> Company Information </a><a href='usermanagement.aspx'> User Management </a><a href='serviceform.aspx'> Service Form </a>");
+                if(Session["ClientID"]!=null)
+                    Response.Write("<a href='logout.aspx'> Logout </a><a href='projectlibrary.aspx'> Project Library </a><a href='companyinformation.aspx'> Company Information </a><a href='usermanagement.aspx'> User Management </a><a href='servicepage.aspx'> Service Form </a>");
                 else
                     Response.Write("<a href='login.aspx'> Login </a>");
             %>
@@ -36,7 +36,7 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </section>
         
-        <footer>2015 &copy; CSE-Global</footer>
+        <footer>2016 &copy; CSE-Global</footer>
         </div>
     </form>
 </body>

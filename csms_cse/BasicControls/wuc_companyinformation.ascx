@@ -31,11 +31,35 @@
                                         <asp:GridView ID="GridView4" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource5" ForeColor="#333333" GridLines="None" Width="814px" style="font-size: small; text-align: center">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>
-                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="Company Address" SortExpression="COMPANYADDRESS" />
-                                                <asp:BoundField DataField="COMPANYPHONE" HeaderText="Company Phone" SortExpression="COMPANYPHONE" />
-                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="Company Fax" SortExpression="COMPANYFAX" />
+                                                <asp:TemplateField HeaderText="Company Name" SortExpression="COMPANYNAME">
+                                                    <EditItemTemplate>
+                                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("COMPANYNAME") %>'></asp:TextBox>
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <title>PopUp Windows</title>
+                                                        <asp:LinkButton ID="Popup1" runat="server" Text='<%# Eval("COMPANYNAME") %>' OnClientClick="WindowsOpen(this)" ForeColor="Blue" Font-Underline="true"/>
+                                                        <script type="text/javascript">
+                                                            function WindowsOpen(value) {
+                                                                myWindow = window.open("CompanyNamePopup.aspx?cpyname=" + value.innerText, "List", "toolbar=yes, location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes, width=1000, height=400,left=430,top=100");
+                                                                myWindow = focus()
+                                                                return false;
+                                                            }
+                                                        </script>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="Address" SortExpression="COMPANYADDRESS" />
+                                                <asp:BoundField DataField="COMPANYPHONE" HeaderText="Phone" SortExpression="COMPANYPHONE" />
+                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="Fax" SortExpression="COMPANYFAX" />
                                                 <asp:BoundField DataField="WEBSITE" HeaderText="Website" SortExpression="WEBSITE" />
+                                                <asp:TemplateField>
+                                                    <EditItemTemplate>
+                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update" ForeColor="Black" Font-Underline="true"></asp:LinkButton>
+                                                        &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" ForeColor="Black" Font-Underline="true"></asp:LinkButton>
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" ForeColor="Blue" Font-Underline="true"></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                             </Columns>
                                             <EditRowStyle BackColor="#2461BF" />
                                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -48,7 +72,10 @@
                                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                                         </asp:GridView>
-                                        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" InsertCommand="INSERT INTO COMPANY(COMPANYNAME, COMPANYADDRESS, COMPANYPHONE, COMPANYFAX, WEBSITE) VALUES (@COMPANYNAME, @COMPANYADDRESS, @COMPANYPHONE, @COMPANYFAX, @WEBSITE)" SelectCommand="SELECT COMPANYNAME, COMPANYADDRESS, COMPANYPHONE, COMPANYFAX, WEBSITE FROM COMPANY" UpdateCommand="UPDATE COMPANY SET COMPANYNAME = @COMPANYNAME, COMPANYADDRESS = @COMPANYADDRESS, COMPANYPHONE = @COMPANYPHONE, COMPANYFAX = @COMPANYFAX, WEBSITE = @WEBSITE">
+                                        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" UpdateCommand="UPDATE COMPANY SET COMPANYADDRESS = @COMPANYADDRESS, COMPANYPHONE = @COMPANYPHONE, COMPANYFAX = @COMPANYFAX, WEBSITE = @WEBSITE WHERE (COMPANYNAME = @COMPANYNAME)" SelectCommand="SELECT [COMPANYNAME], [COMPANYADDRESS], [COMPANYPHONE], [COMPANYFAX], [WEBSITE] FROM [COMPANY] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
+                                            <SelectParameters>
+                                                <asp:ControlParameter ControlID="CompanySearchBox" DefaultValue="%" Name="COMPANYNAME" PropertyName="Text" Type="String" />
+                                            </SelectParameters>
                                             <InsertParameters>
                                                 <asp:Parameter Name="COMPANYNAME" />
                                                 <asp:Parameter Name="COMPANYADDRESS" />
@@ -56,104 +83,67 @@
                                                 <asp:Parameter Name="COMPANYFAX" />
                                                 <asp:Parameter Name="WEBSITE" />
                                             </InsertParameters>
-                                            <UpdateParameters>
-                                                <asp:Parameter Name="COMPANYNAME" />
-                                                <asp:Parameter Name="COMPANYADDRESS" />
-                                                <asp:Parameter Name="COMPANYPHONE" />
-                                                <asp:Parameter Name="COMPANYFAX" />
-                                                <asp:Parameter Name="WEBSITE" />
-                                            </UpdateParameters>
                                         </asp:SqlDataSource>
                                         <br />
                                         <span class="auto-style10">
-                                        <br />
                                         Search For Company Name</span><br class="auto-style10" />
                                         <br />
-                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-&nbsp;
+                                        <asp:TextBox ID="CompanySearchBox" runat="server"></asp:TextBox>
+                                        &nbsp;
                                         <asp:Button ID="Button1" runat="server" Text="Search" />
                                         <br />
                                         <br />
-                                        Company Information<br />
                                         <br />
-                                        <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource2" ForeColor="#333333" GridLines="None" style="margin-bottom: 2px; font-size: small;" Width="813px">
-                                            <AlternatingRowStyle BackColor="White" />
-                                            <Columns>
-                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="COMPANYNAME" SortExpression="COMPANYNAME" />
-                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="COMPANYADDRESS" SortExpression="COMPANYADDRESS" />
-                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="COMPANYFAX" SortExpression="COMPANYFAX" />
-                                                <asp:BoundField DataField="WEBSITE" HeaderText="WEBSITE" SortExpression="WEBSITE" />
-                                            </Columns>
-                                            <EditRowStyle BackColor="#2461BF" />
-                                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                                            <RowStyle BackColor="#EFF3FB" />
-                                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                                        </asp:GridView>
-                                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [COMPANYNAME], [COMPANYADDRESS], [COMPANYFAX], [WEBSITE] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
-                                            <SelectParameters>
-                                                <asp:ControlParameter ControlID="TextBox1" Name="COMPANYNAME" PropertyName="Text" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
+                                        <span class="auto-style11">For New Entry</span><br />
                                         <br />
-                                        Contact Details<br />
-                                        <br />
-                                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource3" ForeColor="#333333" GridLines="None" Width="812px" AllowPaging="True" style="font-size: small">
-                                            <AlternatingRowStyle BackColor="White" />
-                                            <Columns>
-                                                <asp:BoundField DataField="SALUTATION" HeaderText="SALUTATION" SortExpression="SALUTATION" />
-                                                <asp:BoundField DataField="NAME" HeaderText="NAME" SortExpression="NAME" />
-                                                <asp:BoundField DataField="EMAIL" HeaderText="EMAIL" SortExpression="EMAIL" />
-                                                <asp:BoundField DataField="PHONE" HeaderText="PHONE" SortExpression="PHONE" />
-                                                <asp:BoundField DataField="HANDPHONE" HeaderText="HANDPHONE" SortExpression="HANDPHONE" />
-                                                <asp:BoundField DataField="SKYPE" HeaderText="SKYPE" SortExpression="SKYPE" />
-                                                <asp:BoundField DataField="POSITION" HeaderText="POSITION" SortExpression="POSITION" />
-                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="COMPANYNAME" SortExpression="COMPANYNAME" />
-                                            </Columns>
-                                            <EditRowStyle BackColor="#2461BF" />
-                                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                                            <RowStyle BackColor="#EFF3FB" />
-                                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                                        </asp:GridView>
-                                        <br />
-                                        <span class="auto-style11">For Editting &amp; New Entry</span><br />
-                                        <br />
-                                        <asp:DetailsView ID="DetailsView1" runat="server" AllowPaging="True" AutoGenerateRows="False" CellPadding="4" DataSourceID="SqlDataSource6" ForeColor="#333333" GridLines="None" Height="50px" Width="812px" DataKeyNames="CLIENTID" style="font-size: small; text-align: left">
+                                        <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DefaultMode="Insert" CellPadding="4" DataSourceID="SqlDataSource6" ForeColor="#333333" GridLines="None" Height="50px" Width="319px" DataKeyNames="CLIENTID" style="font-size: small; text-align: left" HorizontalAlign="Center">
                                             <AlternatingRowStyle BackColor="White" />
                                             <CommandRowStyle BackColor="#D1DDF1" Font-Bold="True" />
                                             <EditRowStyle BackColor="#2461BF" />
                                             <FieldHeaderStyle BackColor="#DEE8F5" Font-Bold="True" />
                                             <Fields>
-                                                <asp:BoundField DataField="CLIENTID" HeaderText="Client ID" InsertVisible="False" ReadOnly="True" SortExpression="CLIENTID" />
-                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="Company Name" SortExpression="COMPANYNAME" />
-                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="Company Address" SortExpression="COMPANYADDRESS" />
-                                                <asp:BoundField DataField="COMPANYPHONE" HeaderText="Company Phone" SortExpression="COMPANYPHONE" />
-                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="Company Fax" SortExpression="COMPANYFAX" />
-                                                <asp:BoundField DataField="WEBSITE" HeaderText="Website" SortExpression="WEBSITE" />
-                                                <asp:CommandField ShowEditButton="True" ShowInsertButton="True" />
+                                                <asp:BoundField DataField="COMPANYNAME" HeaderText="Company Name *" SortExpression="COMPANYNAME" >
+                                                <ControlStyle Width="110px" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="COMPANYADDRESS" HeaderText="Address *" SortExpression="COMPANYADDRESS" >
+                                                <ControlStyle Width="110px" />
+                                                </asp:BoundField>
+                                                <asp:TemplateField HeaderText="Phone" SortExpression="COMPANYPHONE">
+                                                    <EditItemTemplate>
+                                                    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" Enabled ="true">  
+                                                                                                                                                                                                                
+                                                                    <asp:ListItem Value="60"> 60 </asp:ListItem> 
+                                                                    <asp:ListItem Value="65"> 65 </asp:ListItem>
+                                                                    <asp:ListItem Value="81"> 81 </asp:ListItem>
+                                                                    <asp:ListItem Value="852"> 852 </asp:ListItem>
+                                                                    <asp:ListItem Value="974"> 974 </asp:ListItem>
+                                                                    </asp:DropDownList>         
+                                                              <!--  <asp:TextBox ID="TextBox" runat="server" /> -->
+                                                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("COMPANYPHONE") %>'></asp:TextBox> 
+                                                                                      
+                                                    </EditItemTemplate>
+                                                    <InsertItemTemplate>
+                                                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("COMPANYPHONE") %>'></asp:TextBox> 
+                                                    </InsertItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("COMPANYPHONE") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                    <ControlStyle Width="110px" />
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="COMPANYFAX" HeaderText="Fax" SortExpression="COMPANYFAX" >
+                                                <ControlStyle Width="110px" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="WEBSITE" HeaderText="Website" SortExpression="WEBSITE" >
+                                                <ControlStyle Width="110px" />
+                                                </asp:BoundField>
+                                                <asp:CommandField ShowInsertButton="True" CancelText="Clear" />
                                             </Fields>
                                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                                             <RowStyle BackColor="#EFF3FB" />
                                         </asp:DetailsView>
-                                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" SelectCommand="SELECT [SALUTATION], [NAME], [EMAIL], [PHONE], [HANDPHONE], [SKYPE], [POSITION],[COMPANYNAME] FROM [COMPANYINFO] WHERE ([COMPANYNAME] LIKE '%' + @COMPANYNAME + '%')">
-                                            <SelectParameters>
-                                                <asp:ControlParameter ControlID="TextBox1" Name="COMPANYNAME" PropertyName="Text" Type="String" />
-                                            </SelectParameters>
-                                        </asp:SqlDataSource>
-                                        <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" InsertCommand="INSERT INTO COMPANY(COMPANYNAME, COMPANYADDRESS, COMPANYPHONE, COMPANYFAX, WEBSITE) VALUES (@COMPANYNAME, @COMPANYADDRESS, @COMPANYPHONE, @COMPANYFAX, @WEBSITE)" SelectCommand="SELECT COMPANY.* FROM COMPANY" UpdateCommand="UPDATE COMPANY SET COMPANYNAME = @COMPANYNAME, COMPANYADDRESS = @COMPANYADDRESS, COMPANYPHONE = @COMPANYPHONE, COMPANYFAX = @COMPANYFAX, WEBSITE = @WEBSITE WHERE (CLIENTID = @CLIENTID)">
+                                        <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" InsertCommand="INSERT INTO COMPANY(COMPANYNAME, COMPANYADDRESS, COMPANYPHONE, COMPANYFAX, WEBSITE) VALUES (@COMPANYNAME, @COMPANYADDRESS, @COMPANYPHONE, @COMPANYFAX, @WEBSITE)">
                                             <InsertParameters>
                                                 <asp:Parameter Name="COMPANYNAME" />
                                                 <asp:Parameter Name="COMPANYADDRESS" />
@@ -161,14 +151,6 @@
                                                 <asp:Parameter Name="COMPANYFAX" />
                                                 <asp:Parameter Name="WEBSITE" />
                                             </InsertParameters>
-                                            <UpdateParameters>
-                                                <asp:Parameter Name="COMPANYNAME" />
-                                                <asp:Parameter Name="COMPANYADDRESS" />
-                                                <asp:Parameter Name="COMPANYPHONE" />
-                                                <asp:Parameter Name="COMPANYFAX" />
-                                                <asp:Parameter Name="WEBSITE" />
-                                                <asp:Parameter Name="CLIENTID" />
-                                            </UpdateParameters>
                                         </asp:SqlDataSource>
                                         <br />
                                     </td>
@@ -197,5 +179,5 @@
                    </center>
                    </center>
                    </center>
-                <footer><h5>&nbsp;</h5></footer>
+                <footer><h5>Welcome To Company Information</h5></footer>
             </article>

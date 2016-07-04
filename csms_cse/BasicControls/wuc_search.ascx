@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="wuc_search.ascx.cs" Inherits="BasicControls_wuc_search" %>
 <style type="text/css">
-    .auto-style5 {
+    .auto-style5 {        width: 293px;
     }
         .style1
         {

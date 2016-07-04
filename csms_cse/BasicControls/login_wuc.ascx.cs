@@ -19,7 +19,7 @@ public partial class BasicControls_login_wuc : System.Web.UI.UserControl
             HttpCookie c = new HttpCookie("login");
             c.Values.Add("user", UsernameText.Text);
             if (chkRem.Checked)
-                c.Expires = DateTime.Now.AddYears(5);
+                c.Expires = DateTime.Now.AddMinutes(10);
             Response.Cookies.Add(c);
 
             Response.Redirect("Default.aspx");

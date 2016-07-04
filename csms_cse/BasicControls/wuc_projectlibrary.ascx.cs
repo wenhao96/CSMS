@@ -11,5 +11,9 @@ public partial class BasicControls_wuc_projectlibrary : System.Web.UI.UserContro
     {
 
     }
-   
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+
+    }
 }

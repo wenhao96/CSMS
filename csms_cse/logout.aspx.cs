@@ -15,6 +15,11 @@ public partial class logout : System.Web.UI.Page
             c.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(c);
         }
-        Response.Redirect("Default.aspx");
+        if(Session["clientID"]!=null)
+        {
+            Session.RemoveAll();
+        }
+    
+        Response.Redirect("login.aspx");
     }
 }

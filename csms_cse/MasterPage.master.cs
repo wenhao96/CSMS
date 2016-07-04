@@ -9,9 +9,10 @@ public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Request.Cookies["login"] != null)
-            lblUser.Text = "Welcome Back : " + Request.Cookies["login"]["user"].ToString();
+        if (Session["ClientID"] != null)
+            lblUser.Text = "Welcome Back : " + Request.Cookies["login"]["user"].ToString() + " " + Session["ClientID"];
         else
             lblUser.Text = "";
+
     }
 }
