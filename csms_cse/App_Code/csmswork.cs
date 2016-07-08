@@ -90,7 +90,7 @@ public class csmswork : WebService {
             {
                 Session["Username"] = user.Trim();
                 Session["ClientID"] = retrievedClientID.Trim();
-                Session.Timeout = 20; 
+                //Session.Timeout = 20; 
                 return true;
             }
             else
