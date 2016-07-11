@@ -191,15 +191,23 @@ public partial class BasicControls_wuc_SectionE : System.Web.UI.UserControl
         ct.Go();
 
         Phrase UsernameText = new Phrase(Usernamelbl.Text, Font);
-        ct.SetSimpleColumn(UsernameText, 165, 600, 300, 695, 15, Element.ALIGN_LEFT);
+        ct.SetSimpleColumn(UsernameText, 165, 670, 518, 695, 15, Element.ALIGN_LEFT);
         ct.Go();
 
-        //Phrase CompanyText = new Phrase(Companynamelbl.Text, Font);
-        //ct.SetSimpleColumn(CompanyText, 15, Element.ALIGN_LEFT);
-        //ct.Go();
+        Phrase CompanyText = new Phrase(Companynamelbl.Text, Font);
+        ct.SetSimpleColumn(CompanyText, 165, 650, 518, 672, 15, Element.ALIGN_LEFT);
+        ct.Go();
+
+        Phrase DateTimeText = new Phrase(Datetimelbl.Text, Font);
+        ct.SetSimpleColumn(DateTimeText, 133, 626, 288, 649, 15, Element.ALIGN_LEFT);
+        ct.Go();
+
+        Phrase ContactText = new Phrase(Contactlbl.Text, Font);
+        ct.SetSimpleColumn(ContactText, 347, 626, 519, 649, 15, Element.ALIGN_LEFT);
+        ct.Go();
 
         Phrase DescriptionText = new Phrase(Descriptionlbl.Text, Font);
-        ct.SetSimpleColumn(DescriptionText, 78, 0, 522, 615, 15, Element.ALIGN_LEFT);
+        ct.SetSimpleColumn(DescriptionText, 78, 100, 522, 615, 15, Element.ALIGN_LEFT);
         ct.Go();
         cb.EndText();
 
